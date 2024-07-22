@@ -2,8 +2,13 @@ from fastapi import FastAPI, Request
 
 app = FastAPI()
 
-@app.post("/")
-async def hello_world(request: Request):
+
+@app.get("/")
+async def root():
+    return {"Hello SWISS user!!"}
+
+@app.post("/stars")
+async def stars(request: Request):
     data = await request.json()
     user_input = data.get("input", "")
-    return {"message": f"Gruetzi!! {user_input}"}
+    return {"message": 5 * "*" + user_input + 5 * "*"}
