@@ -11,4 +11,4 @@ async def root():
 async def stars(request: Request):
     data = await request.json()
     user_input = data.get("input", "")
-    return {"message": 5 * "*" + user_input + 5 * "*"}
+    return {"message": f"*****{user_input}*****"}
