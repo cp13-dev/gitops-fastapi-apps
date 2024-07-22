@@ -1,3 +1,4 @@
+import json
 from fastapi import FastAPI
 from pydantic import Field, BaseModel
 
@@ -9,13 +10,12 @@ class UserRequest(BaseModel):
 
 app = FastAPI()
 
-
 @app.get("/")
 async def root():
     return {"Goodbye SWISS user!!"}
 
 @app.post("/stars")
 async def stars(request: UserRequest):
-    data = await request.json()
-    user_input = data.get("input", "")
-    return {"message": f"*****{user_input}*****"}
+    data = json.loads(request.json())
+    user_input = data.get("user_input", "")
+    return {"message": "GOODBYE WORLD:" f"*****{user_input}*****"}
