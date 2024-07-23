@@ -11,11 +11,11 @@ class UserRequest(BaseModel):
 app = FastAPI()
 
 @app.get("/")
-async def root():
+def root():
     return {"Hello SWISS user!!"}
 
 @app.post("/stars")
-async def stars(request: UserRequest):
+def stars(request: UserRequest):
     data = json.loads(request.json())
     user_input = data.get("user_input", "")
     return {"message": "HELLO WORLD:" f"*****{user_input}*****"}
