@@ -5,10 +5,12 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from starlette.status import HTTP_401_UNAUTHORIZED
 from pydantic import Field, BaseModel
+from prometheus_fastapi_instrumentator import Instrumentator
 
 
 app = FastAPI()
 security = HTTPBasic()
+Instrumentator().instrument(app).expose(app)
 
 class UserRequest(BaseModel):
     user_input: str = Field(
