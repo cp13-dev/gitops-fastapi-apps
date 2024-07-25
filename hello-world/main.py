@@ -4,13 +4,13 @@ import secrets
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from starlette.status import HTTP_401_UNAUTHORIZED
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import Field, BaseModel
 from prometheus_fastapi_instrumentator import Instrumentator
 
 
 app = FastAPI()
 security = HTTPBasic()
-Instrumentator().instrument(app).expose(app)
 
 class UserRequest(BaseModel):
     user_input: str = Field(
@@ -37,3 +37,14 @@ def stars(request: UserRequest):
     data = json.loads(request.json())
     user_input = data.get("user_input", "")
     return {"message": "HELLO WORLD:" f"*****{user_input}*****"}
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+Instrumentator().instrument(app).expose(app)
