@@ -1,0 +1,2 @@
+- Use `docker-compose.yaml` file to deploy all the services at once and test it locally with Docker.
+- This file is not used for the CI/CD pipeline or for the deployment of this multiservice in k8.
